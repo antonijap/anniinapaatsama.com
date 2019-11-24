@@ -1,0 +1,72 @@
+// Screen size variables
+$screen-xs-min: 425px; // Tiny phones
+$screen-sm-min: 576px; // Small tablets and large smartphones (landscape view)
+$screen-md-min: 768px; // Small tablets (portrait view)
+$screen-lg-min: 992px; // Tablets and small desktops
+$screen-xl-min: 1200px; // Large tablets and desktops
+
+// Spacing variables
+$space-base: 8px;
+$space-medium: 16px;
+$space-x-medium: 24px;
+$space-large: 32px;
+$space-x-large: 48px;
+
+// Mixins
+@mixin xs {
+  @media (min-width: #{$screen-xs-min}) {
+    @content;
+  }
+}
+
+// Tiny devices
+@mixin sm {
+  @media (min-width: #{$screen-sm-min}) {
+    @content;
+  }
+}
+
+// Small devices
+@mixin md {
+  @media (min-width: #{$screen-md-min}) {
+    @content;
+  }
+}
+
+// Medium devices
+@mixin lg {
+  @media (min-width: #{$screen-lg-min}) {
+    @content;
+  }
+}
+
+// Large devices
+@mixin xl {
+  @media (min-width: #{$screen-xl-min}) {
+    @content;
+  }
+}
+
+* {
+  font-family: bio-sans, sans-serif;
+  line-height: 1.6;
+  font-size: 16px;
+}
+
+a {
+  font-size: inherit;
+  font-weight: 700;
+  cursor: pointer;
+  transition: color 340ms ease-out;
+
+  &:hover {
+    color: #0054ff;
+  }
+}
+
+img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 4px;
+}
