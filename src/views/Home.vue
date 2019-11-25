@@ -1,19 +1,21 @@
 <template>
   <div class="wrapper">
-    <!-- <prismic-rich-text v-if="homepage" :field="homepage.data.title"/>
-    <div class="projects">
+    <prismic-rich-text v-if="home" :field="home.data.intro" class="intro"/>
+    <prismic-rich-text v-if="home" :field="home.data.contact"/>
+    <prismic-rich-text v-if="home" :field="home.data.about"/>
+    <prismic-rich-text v-if="home" :field="home.data.education"/>
+    <prismic-rich-text v-if="home" :field="home.data.experience"/>
+    <prismic-rich-text v-if="home" :field="home.data.extracurricular_activities"/>
+    <prismic-rich-text v-if="home" :field="home.data.fun_facts"/>
+    <prismic-rich-text v-if="home" :field="home.data.lets_connect"/>
+    <!-- <div class="projects">
       <div class="project" v-for="(work, index) in works" :key="index">
         <span>{{ $prismic.richTextAsPlain(work.data.title) }}</span>
         <router-link :href="`/${work.uid}`">
           <img :src="work.data.promo_image.url">
         </router-link>
       </div>
-    </div>
-    <div class="copy">
-      <prismic-rich-text v-if="homepage" :field="homepage.data.slot_1"/>
-    </div>-->
-    <p>Anniina Paatsama</p>
-    <p>hi@anniinapaatsama.com</p>
+    </div> -->
   </div>
 </template>
 
@@ -33,54 +35,10 @@
     width: 60%;
   }
 
-  /deep/ p {
-    font-size: 22px;
-    margin-left: $space-x-medium;
-    margin-right: $space-x-medium;
-    margin-bottom: $space-medium;
-
-    @include md {
-      margin-left: $space-x-medium * 4;
-      margin-right: $space-x-medium * 4;
-    }
+  /deep/ h1 {
+    font-size: 48px;
   }
 
-  .projects {
-    display: grid;
-    grid-template-columns: 1fr;
-    grid-column-gap: $space-base;
-    grid-row-gap: $space-base;
-    margin-bottom: $space-base * 8;
-    margin-top: $space-base * 8;
-
-    @include md {
-      grid-template-columns: 1fr 1fr;
-      margin-bottom: $space-base * 16;
-      margin-top: $space-base * 16;
-    }
-
-    .project {
-      position: relative;
-      overflow: hidden;
-
-      img {
-        transition: transform 100ms ease-in;
-
-        &:hover {
-          transform: scale(1.1);
-        }
-      }
-
-      span {
-        position: absolute;
-        bottom: $space-medium;
-        left: $space-medium;
-        color: #ccc;
-        font-size: 22px;
-        z-index: 9999;
-      }
-    }
-  }
 }
 </style>
 
@@ -90,7 +48,7 @@ export default {
   name: "Home",
   data() {
     return {
-      homepage: null,
+      home: null,
       works: []
     };
   },
@@ -98,16 +56,18 @@ export default {
     getContent(uid) {
       this.$prismic.client
         .query(
-          this.$prismic.Predicates.any("document.type", ["work", "homepage"]),
-          { orderings: "[my.work.order]" }
+          this.$prismic.Predicates.any("document.type", ["home"])
+          // { orderings: "[my.work.order]" }
         )
         .then(response => {
           this.home = response.results;
           response.results.map(item => {
+            console.log(item);
+            
             if (item.type === "work") {
               this.works.push(item);
-            } else if (item.type === "homepage") {
-              this.homepage = item;
+            } else if (item.type === "home") {
+              this.home = item;
             }
           });
         });

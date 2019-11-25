@@ -12,6 +12,25 @@ $space-x-medium: 24px;
 $space-large: 32px;
 $space-x-large: 48px;
 
+@font-face {
+  font-family: 'Hanken Grotesk Regular';
+  font-style: normal;
+  font-weight: normal;
+  src: url("~@/assets/fonts/HKGrotesk-Regular.woff") format("woff"),
+       url("~@/assets/fonts/HKGrotesk-Regular.woff2") format("woff2"),
+}
+
+@font-face {
+  font-family: 'Hanken Grotesk SemiBold';
+  font-style: normal;
+  font-weight: 600;
+  src: url("~@/assets/fonts/HKGrotesk-SemiBold.woff") format("woff"),
+       url("~@/assets/fonts/HKGrotesk-SemiBold.woff2") format("woff2"),
+}
+
+$color-white: #FBF3F3;
+$color-black: #17191B;
+
 // Mixins
 @mixin xs {
   @media (min-width: #{$screen-xs-min}) {
@@ -47,21 +66,15 @@ $space-x-large: 48px;
   }
 }
 
-* {
-  font-family: bio-sans, sans-serif;
-  line-height: 1.6;
-  font-size: 16px;
+html {
+  background: $color-black;
 }
 
-a {
-  font-size: inherit;
-  font-weight: 700;
-  cursor: pointer;
-  transition: color 340ms ease-out;
-
-  &:hover {
-    color: #0054ff;
-  }
+* {
+  font-family: "Hanken Grotesk Regular", sans-serif;
+  line-height: 1.8;
+  font-size: 18px;
+  color: $color-white;
 }
 
 img {
