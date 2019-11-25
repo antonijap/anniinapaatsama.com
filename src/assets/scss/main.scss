@@ -66,15 +66,31 @@ $color-black: #17191B;
   }
 }
 
+@keyframes gradient-flow {
+  0%{background-position:0% 50%}
+  50%{background-position:100% 50%}
+  100%{background-position:0% 50%}
+}
+
 html {
   background: $color-black;
 }
 
 * {
   font-family: "Hanken Grotesk Regular", sans-serif;
-  line-height: 1.8;
-  font-size: 18px;
   color: $color-white;
+  line-height: 1.8;
+  font-size: 14px;
+
+  @include md {
+    line-height: 1.8;
+    font-size: 18px;
+  }
+}
+
+ul, ol {
+  padding-left: $space-medium;
+  list-style-position: outside;
 }
 
 img {
@@ -82,4 +98,75 @@ img {
   height: auto;
   display: block;
   border-radius: 4px;
+}
+
+a {
+  cursor: pointer;
+  position: relative;
+  display: inline-block;
+  color: inherit;
+  text-decoration: none;
+  padding-top: 2px;
+  &:before, &:after {
+    content: '';
+    position: absolute;
+    transition: transform .5s ease;
+  }
+  &:before {
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 1px;
+    background: $color-white;
+    transform:  scaleX(0);
+  }
+  &:hover:before {
+    transform: scaleX(1);
+  }
+}
+
+@mixin textGlitch($name, $intensity, $textColor, $background, $highlightColor1, $highlightColor2, $width, $height) {
+  
+  color: $textColor;
+  position: relative;
+  $steps: $intensity;
+  
+  // Ensure the @keyframes are generated at the root level
+  @at-root {
+    // We need two different ones
+    @for $i from 1 through 2 {
+      @keyframes #{$name}-anim-#{$i} {
+        @for $i from 0 through $steps {
+          $top: random(100);
+          $bottom: random(101 - $top);
+          #{percentage($i*(1/$steps))} {
+            clip-path: inset(#{$top}% 0 #{$bottom}% 0);
+          }
+        }
+      }
+    }
+  }
+  &::before,
+  &::after {
+    content: attr(data-text);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: $background;
+  }
+  &::after {
+    left: 2px;
+    text-shadow: -1px 0 $highlightColor1;
+    animation: #{$name}-anim-1 20s infinite linear alternate-reverse;
+  }
+  &::before {
+    left: -2px;
+    text-shadow: 2px 0 $highlightColor2; 
+    animation: #{$name}-anim-2 3s infinite linear alternate-reverse;
+  }
+}
+
+.glitch-wrapper {
+  @include textGlitch("example-one", 17, $color-white, $color-black, red, blue, 450, 115);
 }

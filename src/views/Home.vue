@@ -24,7 +24,7 @@
     <div class="container horizontal-stack top-space">
       <div>
         <div>
-          <h3>About</h3>
+          <h3 class="about">About</h3>
           <prismic-rich-text v-if="home" :field="home.data.about"/>
         </div>
         <div class="container">
@@ -53,6 +53,7 @@
 
       <div class="top-space">
         <h3>Let's connect</h3>
+        <div class="glitch-wrapper " data-text="GLITCH">GLITCH</div> 
         <prismic-rich-text v-if="home" :field="home.data.lets_connect"/>
       </div>
     </div>
@@ -73,7 +74,7 @@
 
 .wrapper {
   width: 90%;
-  margin: 4em auto;
+  margin: 2em auto;
 
   @include md {
     width: 80%;
@@ -85,31 +86,51 @@
   }
 
   .intro {
-    margin-bottom: $space-x-large * 2;
+    margin-bottom: 2em;
+
+    @include md {
+      margin-bottom: $space-x-large * 2;
+    }
   }
 
   /deep/ h1 {
-    font-size: 43px;
+    font-size: 1.4em;
     line-height: 1.5;
+
+    @include md {
+      font-size: 43px;
+      line-height: 1.5;
+    }
   }
 
   /deep/ h3 {
-    font-size: 18px;
     color: white;
     font-weight: 600;
     font-family: 'Hanken Grotesk SemiBold';
-    margin-bottom: $space-medium;
+    margin-bottom: $space-base;
     text-transform: uppercase;
+
+    @include md {
+      font-size: 18px;
+      margin-bottom: $space-medium;
+    }
   }
 
   /deep/ strong {
-    font-size: 18px;
     font-weight: 600;
     font-family: 'Hanken Grotesk SemiBold';
+
+    @include md {
+      font-size: 18px;
+    }
   }
 
   .container {
-    margin: $space-x-medium 0 0;
+    margin: 2em 0 0;
+
+    @include lg {
+      margin: $space-x-medium 0 0;
+    }
 
     .heading-with-line {
       display: grid;
@@ -127,13 +148,24 @@
 
   .horizontal-stack-small {
     display: grid;
-    grid-template-columns: 30% 30%;
+    grid-template-columns: 1fr;
+    grid-row-gap: $space-medium;
+
+    @include md {
+      grid-template-columns: auto 1fr;
+      grid-column-gap: $space-x-large;
+    }
   }
 
   .horizontal-stack {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-column-gap: $space-x-large;
+    grid-template-columns: 1fr;
+    grid-row-gap: $space-x-large;
+
+    @include lg {
+      grid-template-columns: 1fr 1fr;
+      grid-column-gap: $space-large;
+    }
   }
 
   .line {
@@ -147,7 +179,14 @@
   }
 
   .top-space {
-    margin-top: $space-x-large;
+    margin-top: $space-large;
+    .about {
+      margin-top: $space-x-large;
+
+      @include lg {
+        margin-top: 0
+      }
+    }
   }
 
   .bottom-space {
