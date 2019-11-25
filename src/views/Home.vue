@@ -1,14 +1,14 @@
 <template>
   <div class="wrapper">
-    <prismic-rich-text v-if="home" :field="home.data.intro" class="intro"/>
+    <prismic-rich-text v-if="home" :field="home.data.intro" class="intro" />
     <div class="container horizontal-stack-small">
       <div>
         <h3>Email</h3>
-        <prismic-rich-text v-if="home" :field="home.data.email"/>
+        <prismic-rich-text v-if="home" :field="home.data.email" />
       </div>
       <div>
         <h3>Phone</h3>
-        <prismic-rich-text v-if="home" :field="home.data.phone"/>
+        <prismic-rich-text v-if="home" :field="home.data.phone" />
       </div>
     </div>
 
@@ -17,7 +17,15 @@
         <h3>Projects</h3>
         <div class="line"></div>
       </div>
-      <p class="bottom-space">To be updated!</p>
+      <!-- <p class="bottom-space">To be updated!</p> -->
+      <div class="projects">
+        <div class="project" v-for="(project, index) in projects" :key="index">
+          <router-link :to="`/${project.uid}`">
+            <h4>{{ $prismic.richTextAsPlain(project.data.title) }}</h4>
+            <p>{{ $prismic.richTextAsPlain(project.data.intro) }}</p>
+          </router-link>
+        </div>
+      </div>
       <div class="line"></div>
     </div>
 
@@ -25,46 +33,37 @@
       <div>
         <div>
           <h3>About</h3>
-          <prismic-rich-text v-if="home" :field="home.data.about"/>
+          <prismic-rich-text v-if="home" :field="home.data.about" />
         </div>
         <div class="container">
           <h3>Extracurricular Activities</h3>
-          <prismic-rich-text v-if="home" :field="home.data.extracurricular_activities"/>
+          <prismic-rich-text v-if="home" :field="home.data.extracurricular_activities" />
         </div>
       </div>
 
       <div>
         <div>
           <h3>Education</h3>
-          <prismic-rich-text v-if="home" :field="home.data.education"/>
+          <prismic-rich-text v-if="home" :field="home.data.education" />
         </div>
         <div class="container">
           <h3>Experience</h3>
-          <prismic-rich-text v-if="home" :field="home.data.experience"/>
+          <prismic-rich-text v-if="home" :field="home.data.experience" />
         </div>
       </div>
     </div>
-    
+
     <div class="container">
       <div>
         <h3>Fun facts</h3>
-        <prismic-rich-text v-if="home" :field="home.data.fun_facts"/>
+        <prismic-rich-text v-if="home" :field="home.data.fun_facts" />
       </div>
 
       <div class="top-space">
         <h3>Let's connect</h3>
-        <prismic-rich-text v-if="home" :field="home.data.lets_connect"/>
+        <prismic-rich-text v-if="home" :field="home.data.lets_connect" />
       </div>
     </div>
-    
-    <!-- <div class="projects">
-      <div class="project" v-for="(work, index) in works" :key="index">
-        <span>{{ $prismic.richTextAsPlain(work.data.title) }}</span>
-        <router-link :href="`/${work.uid}`">
-          <img :src="work.data.promo_image.url">
-        </router-link>
-      </div>
-    </div> -->
   </div>
 </template>
 
@@ -94,18 +93,24 @@
   }
 
   /deep/ h3 {
-    font-size: 18px;
     color: white;
     font-weight: 600;
-    font-family: 'Hanken Grotesk SemiBold';
+    font-family: "Hanken Grotesk SemiBold";
     margin-bottom: $space-medium;
     text-transform: uppercase;
+  }
+
+  /deep/ h4 {
+    color: white;
+    font-weight: 600;
+    font-family: "Hanken Grotesk SemiBold";
+    margin-bottom: $space-base;
   }
 
   /deep/ strong {
     font-size: 18px;
     font-weight: 600;
-    font-family: 'Hanken Grotesk SemiBold';
+    font-family: "Hanken Grotesk SemiBold";
   }
 
   .container {
@@ -154,6 +159,13 @@
     margin-bottom: $space-medium;
   }
 
+  .projects {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-column-gap: $space-x-large;
+    grid-row-gap: $space-x-medium;
+    margin-bottom: $space-medium;
+  }
 }
 </style>
 
@@ -164,23 +176,21 @@ export default {
   data() {
     return {
       home: null,
-      works: []
+      projects: []
     };
   },
   methods: {
     getContent(uid) {
       this.$prismic.client
         .query(
-          this.$prismic.Predicates.any("document.type", ["home"])
-          // { orderings: "[my.work.order]" }
+          this.$prismic.Predicates.any("document.type", ["home", "project"]),
+          { orderings: "[my.project.order]" }
         )
         .then(response => {
           this.home = response.results;
           response.results.map(item => {
-            console.log(item);
-            
-            if (item.type === "work") {
-              this.works.push(item);
+            if (item.type === "project") {
+              this.projects.push(item);
             } else if (item.type === "home") {
               this.home = item;
             }
