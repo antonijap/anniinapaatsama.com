@@ -9,10 +9,18 @@ import { library } from '@fortawesome/fontawesome-svg-core'
 import { faLongArrowAltLeft } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
+import VueScrollReveal from 'vue-scroll-reveal';
+
+
 library.add(faLongArrowAltLeft)
 Vue.component('font-awesome-icon', FontAwesomeIcon)
 
 Vue.config.productionTip = false
+
+Vue.use(VueScrollReveal, {
+  scale: 0.95,
+  delay: 250
+});
 
 Vue.use(PrismicVue, {
   endpoint: window.prismic.endpoint,

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="top-bar">
+    <div class="top-bar" v-scroll-reveal>
       <div class="horizontal-stack">
         <prismic-rich-text v-if="home" :field="home.data.email" />
         <prismic-rich-text v-if="home" :field="home.data.phone" />
@@ -10,22 +10,11 @@
     </div>
 
     <div class="wrapper">
-      <prismic-rich-text v-if="home" :field="home.data.intro" class="intro" />
+      <prismic-rich-text v-if="home" :field="home.data.intro" class="intro" v-scroll-reveal />
 
-      <prismic-image v-if="home" :field="home.data.image" />
+      <prismic-image v-if="home" :field="home.data.image" v-scroll-reveal />
 
-      <!-- <div class="container horizontal-stack-small">
-        <div>
-          <h3>Email</h3>
-          <prismic-rich-text v-if="home" :field="home.data.email" />
-        </div>
-        <div>
-          <h3>Phone</h3>
-          <prismic-rich-text v-if="home" :field="home.data.phone" />
-        </div>
-      </div> -->
-
-      <div class="container top-space">
+      <div class="container top-space" v-scroll-reveal>
         <div class="heading-with-line">
           <h3>Projects</h3>
           <div class="line"></div>
@@ -41,7 +30,7 @@
         <div class="line"></div>
       </div>
 
-      <div class="container horizontal-stack top-space">
+      <div class="container horizontal-stack top-space" v-scroll-reveal>
         <div>
           <div>
             <h3>About</h3>
@@ -67,14 +56,6 @@
             <prismic-rich-text v-if="home" :field="home.data.experience" />
           </div>
         </div>
-      </div>
-
-      <div class="container">
-        <!-- <div class="top-space">
-          <h3>Let's connect</h3>
-          <div class="glitch-wrapper " data-text="GLITCH">GLITCH</div> 
-          <prismic-rich-text v-if="home" :field="home.data.lets_connect"/>
-        </div> -->
       </div>
     </div>
   </div>
@@ -116,11 +97,13 @@
     display: grid;
     grid-template-columns: auto auto auto;
     grid-column-gap: $space-medium;
-    justify-content: start;
 
+    /deep/ p a {
+      text-align: right;
+    }
+    
     @include md {
       width: 80%;
-      grid-template-columns: 1fr 1fr 1fr;
     }
   }
 }
@@ -148,10 +131,15 @@
 
   /deep/ h1 {
     font-size: 1.5rem;
+    font-family: "Hanken Grotesk Bold", sans-serif;
 
     @include md {
-      font-size: 4.5rem;
-      line-height: 1.2;
+      font-size: 3.5rem;
+      line-height: 1.3;
+    }
+
+    @include lg {
+      font-size: 5rem;
     }
   }
 
@@ -159,6 +147,10 @@
     font-size: 1.2rem;
 
     @include md {
+      font-size: 1.5rem;
+    }
+
+    @include lg {
       font-size: 2rem;
     }
   }
