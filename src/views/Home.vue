@@ -1,76 +1,129 @@
 <template>
-  <div class="wrapper">
-    <prismic-rich-text v-if="home" :field="home.data.intro" class="intro" />
-
-    <prismic-image v-if="home" :field="home.data.image" />
-
-    <!-- <div class="container horizontal-stack-small">
-      <div>
-        <h3>Email</h3>
+  <div>
+    <div class="top-bar">
+      <div class="horizontal-stack">
         <prismic-rich-text v-if="home" :field="home.data.email" />
-      </div>
-      <div>
-        <h3>Phone</h3>
         <prismic-rich-text v-if="home" :field="home.data.phone" />
       </div>
-    </div> -->
 
-    <div class="container top-space">
-      <div class="heading-with-line">
-        <h3>Projects</h3>
+      <prismic-rich-text class="right-links" v-if="home" :field="home.data.lets_connect"/>
+    </div>
+
+    <div class="wrapper">
+      <prismic-rich-text v-if="home" :field="home.data.intro" class="intro" />
+
+      <prismic-image v-if="home" :field="home.data.image" />
+
+      <!-- <div class="container horizontal-stack-small">
+        <div>
+          <h3>Email</h3>
+          <prismic-rich-text v-if="home" :field="home.data.email" />
+        </div>
+        <div>
+          <h3>Phone</h3>
+          <prismic-rich-text v-if="home" :field="home.data.phone" />
+        </div>
+      </div> -->
+
+      <div class="container top-space">
+        <div class="heading-with-line">
+          <h3>Projects</h3>
+          <div class="line"></div>
+        </div>
+        <div class="projects">
+          <div class="project" v-for="(project, index) in projects" :key="index">
+            <router-link :to="`/${project.uid}`">
+              <h4>{{ $prismic.richTextAsPlain(project.data.title) }}</h4>
+              <p>{{ $prismic.richTextAsPlain(project.data.intro) }}</p>
+            </router-link>
+          </div>
+        </div>
         <div class="line"></div>
       </div>
-      <div class="projects">
-        <div class="project" v-for="(project, index) in projects" :key="index">
-          <router-link :to="`/${project.uid}`">
-            <h4>{{ $prismic.richTextAsPlain(project.data.title) }}</h4>
-            <p>{{ $prismic.richTextAsPlain(project.data.intro) }}</p>
-          </router-link>
-        </div>
-      </div>
-      <div class="line"></div>
-    </div>
 
-    <div class="container horizontal-stack top-space">
-      <div>
+      <div class="container horizontal-stack top-space">
         <div>
-          <h3>About</h3>
-          <prismic-rich-text v-if="home" :field="home.data.about" />
+          <div>
+            <h3>About</h3>
+            <prismic-rich-text v-if="home" :field="home.data.about" />
+          </div>
+          <div class="container">
+            <h3>Extracurricular Activities</h3>
+            <prismic-rich-text v-if="home" :field="home.data.extracurricular_activities" />
+          </div>
+          <div class="container">
+            <h3>Fun facts</h3>
+            <prismic-rich-text v-if="home" :field="home.data.fun_facts" />
+          </div>
         </div>
-        <div class="container">
-          <h3>Extracurricular Activities</h3>
-          <prismic-rich-text v-if="home" :field="home.data.extracurricular_activities" />
-        </div>
-        <div class="container">
-          <h3>Fun facts</h3>
-          <prismic-rich-text v-if="home" :field="home.data.fun_facts" />
-        </div>
-      </div>
 
-      <div>
         <div>
-          <h3>Education</h3>
-          <prismic-rich-text v-if="home" :field="home.data.education" />
-        </div>
-        <div class="container">
-          <h3>Experience</h3>
-          <prismic-rich-text v-if="home" :field="home.data.experience" />
+          <div>
+            <h3>Education</h3>
+            <prismic-rich-text v-if="home" :field="home.data.education" />
+          </div>
+          <div class="container">
+            <h3>Experience</h3>
+            <prismic-rich-text v-if="home" :field="home.data.experience" />
+          </div>
         </div>
       </div>
-    </div>
 
-    <div class="container">
-      <!-- <div class="top-space">
-        <h3>Let's connect</h3>
-        <div class="glitch-wrapper " data-text="GLITCH">GLITCH</div> 
-        <prismic-rich-text v-if="home" :field="home.data.lets_connect"/>
-      </div> -->
+      <div class="container">
+        <!-- <div class="top-space">
+          <h3>Let's connect</h3>
+          <div class="glitch-wrapper " data-text="GLITCH">GLITCH</div> 
+          <prismic-rich-text v-if="home" :field="home.data.lets_connect"/>
+        </div> -->
+      </div>
     </div>
   </div>
 </template>
 
 <style lang="scss" scoped>
 @import "../assets/scss/main.scss";
+
+.top-bar {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: $space-large;
+  align-content: space-around;
+  width: 90%;
+  margin: 1em auto 0;
+
+  @include md {
+    width: 80%;
+    grid-template-columns: 1fr auto;
+  }
+
+  @include xl {
+    width: 65%;
+  }
+
+  .horizontal-stack {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-column-gap: $space-medium;
+    justify-content: start;
+
+    @include md {
+      width: 80%;
+      grid-template-columns: auto auto;
+    }
+  }
+
+  .right-links {
+    display: grid;
+    grid-template-columns: auto auto auto;
+    grid-column-gap: $space-medium;
+    justify-content: start;
+
+    @include md {
+      width: 80%;
+      grid-template-columns: 1fr 1fr 1fr;
+    }
+  }
+}
 
 .wrapper {
   width: 90%;
@@ -164,8 +217,12 @@
 
   .horizontal-stack {
     display: grid;
-    grid-template-columns: 1fr 30%;
+    grid-template-columns: 1fr;
     grid-column-gap: $space-x-large;
+
+    @include md {
+      grid-template-columns: 1fr 30%;
+    }
   }
 
   .line {
@@ -188,10 +245,14 @@
 
   .projects {
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: 1fr;
     grid-column-gap: $space-x-large;
     grid-row-gap: $space-x-medium;
     margin-bottom: $space-medium;
+
+    @include md {
+      grid-template-columns: 1fr 1fr 1fr;
+    }
   }
 }
 </style>
