@@ -1,7 +1,10 @@
 <template>
   <div class="wrapper">
     <prismic-rich-text v-if="home" :field="home.data.intro" class="intro" />
-    <div class="container horizontal-stack-small">
+
+    <prismic-image v-if="home" :field="home.data.image" />
+
+    <!-- <div class="container horizontal-stack-small">
       <div>
         <h3>Email</h3>
         <prismic-rich-text v-if="home" :field="home.data.email" />
@@ -10,14 +13,13 @@
         <h3>Phone</h3>
         <prismic-rich-text v-if="home" :field="home.data.phone" />
       </div>
-    </div>
+    </div> -->
 
-    <div class="container">
+    <div class="container top-space">
       <div class="heading-with-line">
         <h3>Projects</h3>
         <div class="line"></div>
       </div>
-      <!-- <p class="bottom-space">To be updated!</p> -->
       <div class="projects">
         <div class="project" v-for="(project, index) in projects" :key="index">
           <router-link :to="`/${project.uid}`">
@@ -39,6 +41,10 @@
           <h3>Extracurricular Activities</h3>
           <prismic-rich-text v-if="home" :field="home.data.extracurricular_activities" />
         </div>
+        <div class="container">
+          <h3>Fun facts</h3>
+          <prismic-rich-text v-if="home" :field="home.data.fun_facts" />
+        </div>
       </div>
 
       <div>
@@ -54,19 +60,10 @@
     </div>
 
     <div class="container">
-      <div>
-        <h3>Fun facts</h3>
-        <prismic-rich-text v-if="home" :field="home.data.fun_facts" />
-      </div>
-
-      <div class="top-space">
+      <!-- <div class="top-space">
         <h3>Let's connect</h3>
-<<<<<<< Updated upstream
-        <prismic-rich-text v-if="home" :field="home.data.lets_connect" />
-=======
         <prismic-rich-text v-if="home" :field="home.data.lets_connect"/>
->>>>>>> Stashed changes
-      </div>
+      </div> -->
     </div>
   </div>
 </template>
@@ -92,8 +89,20 @@
   }
 
   /deep/ h1 {
-    font-size: 43px;
-    line-height: 1.5;
+    font-size: 1.5rem;
+
+    @include md {
+      font-size: 4.5rem;
+      line-height: 1.2;
+    }
+  }
+
+  /deep/ h2 {
+    font-size: 1.2rem;
+
+    @include md {
+      font-size: 2rem;
+    }
   }
 
   /deep/ h3 {
@@ -112,13 +121,12 @@
   }
 
   /deep/ strong {
-    font-size: 18px;
     font-weight: 600;
     font-family: "Hanken Grotesk SemiBold";
   }
 
   .container {
-    margin: $space-x-medium 0 0;
+    margin: $space-x-large 0 0;
 
     .heading-with-line {
       display: grid;
@@ -141,7 +149,7 @@
 
   .horizontal-stack {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr 30%;
     grid-column-gap: $space-x-large;
   }
 
@@ -156,7 +164,7 @@
   }
 
   .top-space {
-    margin-top: $space-x-large;
+    margin-top: $space-x-large * 1.4;
   }
 
   .bottom-space {
@@ -165,7 +173,7 @@
 
   .projects {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
     grid-column-gap: $space-x-large;
     grid-row-gap: $space-x-medium;
     margin-bottom: $space-medium;

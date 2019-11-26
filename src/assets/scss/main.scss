@@ -73,7 +73,7 @@ html {
 * {
   font-family: "Hanken Grotesk Regular", sans-serif;
   line-height: 1.8;
-  font-size: 18px;
+  font-size: 14px;
   color: $color-white;
 }
 
@@ -83,31 +83,8 @@ img {
   display: block;
   border-radius: 4px;
 }
-<<<<<<< Updated upstream
-=======
 
-a {
-  cursor: pointer;
-  position: relative;
-  display: inline-block;
-  color: inherit;
-  text-decoration: none;
-  padding-top: 2px;
-  &:before, &:after {
-    content: '';
-    position: absolute;
-    transition: transform .5s ease;
-  }
-  &:before {
-    left: 0;
-    bottom: 0;
-    width: 100%;
-    height: 1px;
-    background: $color-white;
-    transform:  scaleX(0);
-  }
-  &:hover:before {
-    transform: scaleX(1);
-  }
+ul, ol {
+  padding-left: $space-medium;
+  list-style-position: outside;
 }
->>>>>>> Stashed changes
