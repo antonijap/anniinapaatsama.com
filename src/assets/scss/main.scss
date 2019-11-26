@@ -83,3 +83,31 @@ img {
   display: block;
   border-radius: 4px;
 }
+<<<<<<< Updated upstream
+=======
+
+a {
+  cursor: pointer;
+  position: relative;
+  display: inline-block;
+  color: inherit;
+  text-decoration: none;
+  padding-top: 2px;
+  &:before, &:after {
+    content: '';
+    position: absolute;
+    transition: transform .5s ease;
+  }
+  &:before {
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 1px;
+    background: $color-white;
+    transform:  scaleX(0);
+  }
+  &:hover:before {
+    transform: scaleX(1);
+  }
+}
+>>>>>>> Stashed changes

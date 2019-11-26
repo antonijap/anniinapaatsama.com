@@ -61,7 +61,11 @@
 
       <div class="top-space">
         <h3>Let's connect</h3>
+<<<<<<< Updated upstream
         <prismic-rich-text v-if="home" :field="home.data.lets_connect" />
+=======
+        <prismic-rich-text v-if="home" :field="home.data.lets_connect"/>
+>>>>>>> Stashed changes
       </div>
     </div>
   </div>
