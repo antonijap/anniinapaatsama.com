@@ -118,7 +118,6 @@
     text-transform: uppercase;
 
     @include md {
-      font-size: 18px;
       margin-bottom: $space-medium;
     }
   }
