@@ -1,71 +1,71 @@
 <template>
   <div class="wrapper">
-    <prismic-rich-text v-if="home" :field="home.data.intro" class="intro"/>
-    <div class="container horizontal-stack-small">
+    <prismic-rich-text v-if="home" :field="home.data.intro" class="intro" />
+
+    <prismic-image v-if="home" :field="home.data.image" />
+
+    <!-- <div class="container horizontal-stack-small">
       <div>
         <h3>Email</h3>
-        <prismic-rich-text v-if="home" :field="home.data.email"/>
+        <prismic-rich-text v-if="home" :field="home.data.email" />
       </div>
       <div>
         <h3>Phone</h3>
-        <prismic-rich-text v-if="home" :field="home.data.phone"/>
+        <prismic-rich-text v-if="home" :field="home.data.phone" />
       </div>
-    </div>
+    </div> -->
 
-    <div class="container">
+    <div class="container top-space">
       <div class="heading-with-line">
         <h3>Projects</h3>
         <div class="line"></div>
       </div>
-      <p class="bottom-space">To be updated!</p>
+      <div class="projects">
+        <div class="project" v-for="(project, index) in projects" :key="index">
+          <router-link :to="`/${project.uid}`">
+            <h4>{{ $prismic.richTextAsPlain(project.data.title) }}</h4>
+            <p>{{ $prismic.richTextAsPlain(project.data.intro) }}</p>
+          </router-link>
+        </div>
+      </div>
       <div class="line"></div>
     </div>
 
     <div class="container horizontal-stack top-space">
       <div>
         <div>
-          <h3 class="about">About</h3>
-          <prismic-rich-text v-if="home" :field="home.data.about"/>
+          <h3>About</h3>
+          <prismic-rich-text v-if="home" :field="home.data.about" />
         </div>
         <div class="container">
           <h3>Extracurricular Activities</h3>
-          <prismic-rich-text v-if="home" :field="home.data.extracurricular_activities"/>
+          <prismic-rich-text v-if="home" :field="home.data.extracurricular_activities" />
+        </div>
+        <div class="container">
+          <h3>Fun facts</h3>
+          <prismic-rich-text v-if="home" :field="home.data.fun_facts" />
         </div>
       </div>
 
       <div>
         <div>
           <h3>Education</h3>
-          <prismic-rich-text v-if="home" :field="home.data.education"/>
+          <prismic-rich-text v-if="home" :field="home.data.education" />
         </div>
         <div class="container">
           <h3>Experience</h3>
-          <prismic-rich-text v-if="home" :field="home.data.experience"/>
+          <prismic-rich-text v-if="home" :field="home.data.experience" />
         </div>
       </div>
     </div>
-    
-    <div class="container">
-      <div>
-        <h3>Fun facts</h3>
-        <prismic-rich-text v-if="home" :field="home.data.fun_facts"/>
-      </div>
 
-      <div class="top-space">
+    <div class="container">
+      <!-- <div class="top-space">
         <h3>Let's connect</h3>
         <div class="glitch-wrapper " data-text="GLITCH">GLITCH</div> 
         <prismic-rich-text v-if="home" :field="home.data.lets_connect"/>
-      </div>
+      </div> -->
     </div>
-    
-    <!-- <div class="projects">
-      <div class="project" v-for="(work, index) in works" :key="index">
-        <span>{{ $prismic.richTextAsPlain(work.data.title) }}</span>
-        <router-link :href="`/${work.uid}`">
-          <img :src="work.data.promo_image.url">
-        </router-link>
-      </div>
-    </div> -->
   </div>
 </template>
 
@@ -94,20 +94,27 @@
   }
 
   /deep/ h1 {
-    font-size: 1.4em;
-    line-height: 1.5;
+    font-size: 1.5rem;
 
     @include md {
-      font-size: 43px;
-      line-height: 1.5;
+      font-size: 4.5rem;
+      line-height: 1.2;
+    }
+  }
+
+  /deep/ h2 {
+    font-size: 1.2rem;
+
+    @include md {
+      font-size: 2rem;
     }
   }
 
   /deep/ h3 {
     color: white;
     font-weight: 600;
-    font-family: 'Hanken Grotesk SemiBold';
-    margin-bottom: $space-base;
+    font-family: "Hanken Grotesk SemiBold";
+    margin-bottom: $space-medium;
     text-transform: uppercase;
 
     @include md {
@@ -116,21 +123,20 @@
     }
   }
 
+  /deep/ h4 {
+    color: white;
+    font-weight: 600;
+    font-family: "Hanken Grotesk SemiBold";
+    margin-bottom: $space-base;
+  }
+
   /deep/ strong {
     font-weight: 600;
-    font-family: 'Hanken Grotesk SemiBold';
-
-    @include md {
-      font-size: 18px;
-    }
+    font-family: "Hanken Grotesk SemiBold";
   }
 
   .container {
-    margin: 2em 0 0;
-
-    @include lg {
-      margin: $space-x-medium 0 0;
-    }
+    margin: $space-x-large 0 0;
 
     .heading-with-line {
       display: grid;
@@ -159,13 +165,8 @@
 
   .horizontal-stack {
     display: grid;
-    grid-template-columns: 1fr;
-    grid-row-gap: $space-x-large;
-
-    @include lg {
-      grid-template-columns: 1fr 1fr;
-      grid-column-gap: $space-large;
-    }
+    grid-template-columns: 1fr 30%;
+    grid-column-gap: $space-x-large;
   }
 
   .line {
@@ -179,20 +180,20 @@
   }
 
   .top-space {
-    margin-top: $space-large;
-    .about {
-      margin-top: $space-x-large;
-
-      @include lg {
-        margin-top: 0
-      }
-    }
+    margin-top: $space-x-large * 1.4;
   }
 
   .bottom-space {
     margin-bottom: $space-medium;
   }
 
+  .projects {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-column-gap: $space-x-large;
+    grid-row-gap: $space-x-medium;
+    margin-bottom: $space-medium;
+  }
 }
 </style>
 
@@ -203,23 +204,21 @@ export default {
   data() {
     return {
       home: null,
-      works: []
+      projects: []
     };
   },
   methods: {
     getContent(uid) {
       this.$prismic.client
         .query(
-          this.$prismic.Predicates.any("document.type", ["home"])
-          // { orderings: "[my.work.order]" }
+          this.$prismic.Predicates.any("document.type", ["home", "project"]),
+          { orderings: "[my.project.order]" }
         )
         .then(response => {
           this.home = response.results;
           response.results.map(item => {
-            console.log(item);
-            
-            if (item.type === "work") {
-              this.works.push(item);
+            if (item.type === "project") {
+              this.projects.push(item);
             } else if (item.type === "home") {
               this.home = item;
             }

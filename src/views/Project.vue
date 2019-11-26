@@ -1,9 +1,8 @@
 <template>
   <div class="wrapper">
-    <prismic-rich-text v-if="project" :field="project.data.title"/>
-    <prismic-rich-text v-if="project" :field="project.data.description"/>
-    <img v-if="project" :src="project.data.promo_image.url">
-    <prismic-rich-text v-if="project" :field="project.data.case"/>
+    <prismic-rich-text v-if="project" :field="project.data.title" />
+    <prismic-rich-text v-if="project" :field="project.data.description" />
+    <prismic-rich-text v-if="project" :field="project.data.case" />
   </div>
 </template>
 
@@ -114,7 +113,7 @@ export default {
   },
   methods: {
     getContent(uid) {
-      this.$prismic.client.getByUID("work", uid).then(document => {
+      this.$prismic.client.getByUID("project", uid).then(document => {
         this.project = document;
       });
     }
