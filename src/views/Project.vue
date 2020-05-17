@@ -2,7 +2,7 @@
   <div class="wrapper">
     <a class="back" href="/">Back</a>
     <prismic-rich-text v-if="project" :field="project.data.title" />
-    <prismic-image v-if="project" :field="project.data.image" />
+    <prismic-image v-if="project.data.image" :field="project.data.image" />
     <prismic-rich-text class="intro" v-if="project" :field="project.data.intro" />
     <prismic-rich-text v-if="project" :field="project.data.description" />
     <prismic-rich-text v-if="project" :field="project.data.case" />
@@ -15,6 +15,12 @@
 .wrapper {
   width: 90%;
   margin: 4em auto;
+  
+  /deep/ a {
+    font-size: 1.2em;
+    line-height: 1.8;
+    color: rgb(115, 176, 255);
+  }
 
   @include md {
     width: 80%;
@@ -33,6 +39,23 @@
     margin-left: $space-x-medium;
     margin-right: $space-x-medium;
     margin-bottom: $space-x-medium;
+
+    @include md {
+      margin-left: $space-x-medium * 4;
+      margin-right: $space-x-medium * 4;
+    }
+  }
+
+  /deep/ ol {
+    margin-left: $space-x-medium;
+    margin-right: $space-x-medium;
+    margin-bottom: $space-x-medium;
+    
+    li {
+      font-size: 1.2em;
+      line-height: 1.8;
+      margin-left: $space-medium;
+    }
 
     @include md {
       margin-left: $space-x-medium * 4;
@@ -82,7 +105,7 @@
   }
 
   /deep/ p {
-    font-size: 16px;
+    font-size: 1.2em;
     line-height: 1.8;
     margin-left: 0;
     margin-right: 0;
