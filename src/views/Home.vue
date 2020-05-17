@@ -132,14 +132,15 @@
   /deep/ h1 {
     font-size: 1.5rem;
     font-family: "Hanken Grotesk Bold", sans-serif;
+    line-height: 1.2;
 
     @include md {
-      font-size: 3.5rem;
+      font-size: 2.5rem;
       line-height: 1.3;
     }
 
     @include lg {
-      font-size: 5rem;
+      font-size: 4rem;
     }
   }
 
@@ -147,11 +148,11 @@
     font-size: 1.2rem;
 
     @include md {
-      font-size: 1.5rem;
+      font-size: 1rem;
     }
 
     @include lg {
-      font-size: 2rem;
+      font-size: 1.5rem;
     }
   }
 
@@ -241,6 +242,15 @@
     grid-column-gap: $space-x-large;
     grid-row-gap: $space-x-medium;
     margin-bottom: $space-medium;
+
+    /deep/ a {
+      &:before, &:after {
+        height: 0;
+      }
+      &:hover {
+        opacity: 0.7;
+      }
+    }
 
     @include md {
       grid-template-columns: 1fr 1fr 1fr;

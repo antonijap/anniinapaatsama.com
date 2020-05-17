@@ -5,15 +5,7 @@ import htmlSerializer from './prismic/html-serializer'
 import App from './App.vue'
 import router from './router'
 
-import { library } from '@fortawesome/fontawesome-svg-core'
-import { faLongArrowAltLeft } from '@fortawesome/free-solid-svg-icons'
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-
 import VueScrollReveal from 'vue-scroll-reveal';
-
-
-library.add(faLongArrowAltLeft)
-Vue.component('font-awesome-icon', FontAwesomeIcon)
 
 Vue.config.productionTip = false
 
