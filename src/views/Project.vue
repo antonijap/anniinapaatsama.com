@@ -2,7 +2,6 @@
   <div class="wrapper">
     <a class="back" href="/">Back</a>
     <prismic-rich-text v-if="project" :field="project.data.title" />
-    <prismic-image v-if="project.data.image" :field="project.data.image" />
     <prismic-rich-text class="intro" v-if="project" :field="project.data.intro" />
     <prismic-rich-text v-if="project" :field="project.data.description" />
     <prismic-rich-text v-if="project" :field="project.data.case" />
@@ -139,9 +138,22 @@
   }
 
   .intro {
+    border-left: 10px solid rgb(49, 49, 49);
     /deep/  p {
       font-size: 1.6em;
       line-height: 1.5;
+      margin-left: $space-x-medium;
+      margin-right: $space-x-medium;
+      padding: 0;
+    }
+    margin-left: $space-x-medium;
+    margin-right: $space-x-medium;
+    margin-top: $space-x-large;
+    margin-bottom: $space-x-large;
+
+    @include md {
+      margin-left: $space-x-medium * 4;
+      margin-right: $space-x-medium * 4;
     }
   }
 }
@@ -160,6 +172,8 @@ export default {
     getContent(uid) {
       this.$prismic.client.getByUID("project", uid).then(document => {
         this.project = document;
+        console.log(this.project);
+        
       });
     }
   },
